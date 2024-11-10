@@ -1,0 +1,135 @@
+{
+    "start_time": "2024-11-08T17:52:53.873739",
+    "fps": 25,
+    "sensors": [
+        {
+            "type": "camera",
+            "id": 0,
+            "transform": {
+                "location": {
+                    "x": 1.5,
+                    "y": -0.0,
+                    "z": 2.4000000953674316
+                },
+                "rotation": {
+                    "pitch": 0.0,
+                    "yaw": -0.0,
+                    "roll": 0.0
+                }
+            },
+            "attributes": {
+                "image_size_x": 1920,
+                "image_size_y": 1080,
+                "fov": 90
+            }
+        },
+        {
+            "type": "camera",
+            "id": 1,
+            "transform": {
+                "location": {
+                    "x": 1.5,
+                    "y": 0.5,
+                    "z": 2.4000000953674316
+                },
+                "rotation": {
+                    "pitch": 0.0,
+                    "yaw": 45.0,
+                    "roll": 0.0
+                }
+            },
+            "attributes": {
+                "image_size_x": 1920,
+                "image_size_y": 1080,
+                "fov": 90
+            }
+        },
+        {
+            "type": "camera",
+            "id": 2,
+            "transform": {
+                "location": {
+                    "x": 1.5,
+                    "y": -0.5,
+                    "z": 2.4000000953674316
+                },
+                "rotation": {
+                    "pitch": 0.0,
+                    "yaw": -45.0,
+                    "roll": 0.0
+                }
+            },
+            "attributes": {
+                "image_size_x": 1920,
+                "image_size_y": 1080,
+                "fov": 90
+            }
+        },
+        {
+            "type": "camera",
+            "id": 3,
+            "transform": {
+                "location": {
+                    "x": 0.0,
+                    "y": 0.8999999761581421,
+                    "z": 2.4000000953674316
+                },
+                "rotation": {
+                    "pitch": 0.0,
+                    "yaw": 90.0,
+                    "roll": 0.0
+                }
+            },
+            "attributes": {
+                "image_size_x": 1920,
+                "image_size_y": 1080,
+                "fov": 90
+            }
+        },
+        {
+            "type": "camera",
+            "id": 4,
+            "transform": {
+                "location": {
+                    "x": 0.0,
+                    "y": -0.8999999761581421,
+                    "z": 2.4000000953674316
+                },
+                "rotation": {
+                    "pitch": 0.0,
+                    "yaw": -90.0,
+                    "roll": 0.0
+                }
+            },
+            "attributes": {
+                "image_size_x": 1920,
+                "image_size_y": 1080,
+                "fov": 90
+            }
+        },
+        {
+            "type": "lidar",
+            "id": "lidar_0",
+            "transform": {
+                "location": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 2.5
+                },
+                "rotation": {
+                    "pitch": 0.0,
+                    "yaw": -0.0,
+                    "roll": 0.0
+                }
+            },
+            "attributes": {
+                "range": 100.0,
+                "rotation_frequency": 25,
+                "points_per_second": 1000000
+            }
+        }
+    ],
+    "output_dir": "D:\\CARLA_0.9.15\\WindowsNoEditor\\PythonAPI\\data_collection\\carla_data_4",
+    "end_time": "2024-11-08T17:58:52.400871",
+    "total_frames": 100
+}
