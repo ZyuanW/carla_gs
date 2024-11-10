@@ -26,7 +26,7 @@ pip install -e submodules/simple-knn
 ```
 
 ### Preparing Carla Dataset
-Check /carla_gs/carla_data_collection
+Check /carla_gs/carla_data_collection   
 You can also download from [Here](https://drive.google.com/drive/folders/1rkUZolT7OMYxU50GeOyr6BK7Q7omFd_j?usp=sharing) for a quick start
 
 
