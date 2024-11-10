@@ -1104,7 +1104,7 @@ def readCarlaInfo(path, white_background, eval, extension=".png", use_bg_gs=Fals
                   ):
     
     # check arguments
-    print("================== readWaymoInfo ==================")
+    print("================== readCarlaInfo ==================")
     print("path: ", path)
     print("white_background: ", white_background)
     print("eval: ", eval)
