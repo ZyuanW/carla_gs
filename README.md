@@ -23,6 +23,7 @@ pip install torch==2.2.1 torchvision==0.17.1 torchaudio==2.2.1 --index-url https
 pip install -r requirements.txt
 pip install -e submodules/depth-diff-gaussian-rasterization
 pip install -e submodules/simple-knn
+apt install -y libx11-6 libx11-dev libgl1 libgl1-mesa-glx libgl1-mesa-dev libglib2.0-0
 ```
 
 ### Preparing Carla Dataset
