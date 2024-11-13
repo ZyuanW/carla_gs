@@ -17,7 +17,7 @@ def main():
     # Camera parameters (should match those used in the data collection script)
     image_width = 1920
     image_height = 1080
-    fov = 90  # degrees
+    fov = 50  # degrees
 
     # Compute focal lengths
     f_u = (image_width / 2) / np.tan(np.radians(fov / 2))
@@ -30,17 +30,18 @@ def main():
     intrinsics = [f_u, f_v, c_u, c_v, k1, k2, p1, p2, k3]
 
     # Camera extrinsics (should match the camera transforms in the data collection script)
+    # define camera transforms
     camera_transforms = [
-        {'id': 0, 'transform': carla.Transform(carla.Location(x=1.5, y=0.0, z=2.4),
-                                               carla.Rotation(pitch=0.0, yaw=0.0, roll=0.0))},
-        {'id': 1, 'transform': carla.Transform(carla.Location(x=1.5, y=-0.5, z=2.4),
-                                               carla.Rotation(pitch=0.0, yaw=-45.0, roll=0.0))},
-        {'id': 2, 'transform': carla.Transform(carla.Location(x=1.5, y=0.5, z=2.4),
-                                               carla.Rotation(pitch=0.0, yaw=45.0, roll=0.0))},
-        {'id': 3, 'transform': carla.Transform(carla.Location(x=0.0, y=-0.9, z=2.4),
-                                               carla.Rotation(pitch=0.0, yaw=-90.0, roll=0.0))},
-        {'id': 4, 'transform': carla.Transform(carla.Location(x=0.0, y=0.9, z=2.4),
-                                               carla.Rotation(pitch=0.0, yaw=90.0, roll=0.0))},
+        {'id': 0, 'transform': carla.Transform(carla.Location(x=1.5, y=0.0, z=1.6),
+                                               carla.Rotation(pitch=0.0, yaw=0.0, roll=0.0))},  # FRONT
+        {'id': 1, 'transform': carla.Transform(carla.Location(x=1.5, y=-0.1, z=1.6),
+                                               carla.Rotation(pitch=0.0, yaw=-45.0, roll=0.0))},  # FRONT_LEFT
+        {'id': 2, 'transform': carla.Transform(carla.Location(x=1.5, y=0.1, z=1.6),
+                                               carla.Rotation(pitch=0.0, yaw=45.0, roll=0.0))},  # FRONT_RIGHT
+        {'id': 3, 'transform': carla.Transform(carla.Location(x=1.5, y=-0.1, z=1.6),
+                                               carla.Rotation(pitch=0.0, yaw=-90.0, roll=0.0))},  # SIDE_LEFT
+        {'id': 4, 'transform': carla.Transform(carla.Location(x=1.5, y=0.1, z=1.6),
+                                               carla.Rotation(pitch=0.0, yaw=90.0, roll=0.0))},  # SIDE_RIGHT
     ]
 
     for cam in camera_transforms:
