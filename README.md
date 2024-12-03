@@ -32,7 +32,8 @@ You can also download from [Here](https://drive.google.com/drive/folders/1rkUZol
 
 
 ### Quick Start
-Using /carla_gs/carla_train.ipynb for quick start
+Using `/carla_gs/carla_train.ipynb` for quick start    
+You can also download pretrained weight [HERE](https://drive.google.com/drive/folders/18UDfD0W3AkUTBn2bddWzyWNECIZoehU0?usp=sharing)
 
 ### Training
 For training first clip (eg. 0-50 frames), run 
