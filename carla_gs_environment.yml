@@ -1,4 +1,4 @@
-name: Carla-S3Gaussian
+name: Carla-Gaussian
 channels:
   - conda-forge
   - defaults

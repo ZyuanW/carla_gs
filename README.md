@@ -15,8 +15,8 @@ git clone https://github.com/ZyuanW/carla_gs.git --recursive
 
 ```
 # Set conda environment
-conda create -n carla-s3 python=3.8
-conda activate carla-s3
+conda create -n carla-gs python=3.8
+conda activate carla-gs
 
 pip install torch==2.2.1 torchvision==0.17.1 torchaudio==2.2.1 --index-url https://download.pytorch.org/whl/cu118
 
@@ -27,12 +27,12 @@ apt install -y libx11-6 libx11-dev libgl1 libgl1-mesa-glx libgl1-mesa-dev libgli
 ```
 
 ### Preparing Carla Dataset
-Check /carla_gs/carla_data_collection   
+Check `/carla_gs/carla_data_collection`
 You can also download from [Here](https://drive.google.com/drive/folders/1rkUZolT7OMYxU50GeOyr6BK7Q7omFd_j?usp=sharing) for a quick start
 
 
 ### Quick Start
-Using /carla_gs/S3_carla_train.ipynb for quick start
+Using /carla_gs/carla_train.ipynb for quick start
 
 ### Training
 For training first clip (eg. 0-50 frames), run 
