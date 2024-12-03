@@ -52,7 +52,7 @@ class ModelParams(ParamGroup):
         self._model_path = ""
         self._images = "images"
         self._resolution = -1
-        self._white_background = False
+        self._white_background = False # False
         self.data_device = "cuda"
         self.eval = True
         # test/ train split
@@ -110,16 +110,16 @@ class OptimizationParams(ParamGroup):
         self.vis_step = 2000
         self.batch_size=1
         
-        self.iterations = 50_000 # 30_000
-        self.coarse_iterations = 5000
+        self.iterations = 60_000 # 30_000
+        self.coarse_iterations = 7000
 
-        self.position_lr_init = 0.00016
+        self.position_lr_init = 0.00016 # 0.00016
         self.position_lr_final = 0.0000016
         
         self.position_lr_delay_mult = 0.01
         self.position_lr_max_steps = 30_000
 
-        self.deformation_lr_init = 0.000016
+        self.deformation_lr_init = 0.000016 
         self.deformation_lr_final = 0.0000016
         self.deformation_lr_delay_mult = 0.01
         self.grid_lr_init = 0.00016
@@ -127,19 +127,19 @@ class OptimizationParams(ParamGroup):
 
         self.feature_lr = 0.0025
         self.opacity_lr = 0.05
-        self.scaling_lr = 0.005
+        self.scaling_lr = 0.005 # 0.005
         self.rotation_lr = 0.001
         self.percent_dense = 0.01
-        self.lambda_dssim = 0.2
+        self.lambda_dssim = 0.3 # 0.2
         self.lambda_depth = 0.5
         self.densification_interval = 100   # 100
-        self.opacity_reset_interval = 3000
+        self.opacity_reset_interval = 5000 # 3000
         self.pruning_interval = 100
         self.pruning_from_iter = 500
-        self.densify_until_iter = 25_000
+        self.densify_until_iter = 30_000 # 25_000
         # self.densify_grad_threshold = 0.0002
-        self.densify_grad_threshold_coarse = 0.0002
-        self.densify_grad_threshold_fine_init = 0.0002
+        self.densify_grad_threshold_coarse = 0.0002 # 0.0002
+        self.densify_grad_threshold_fine_init = 0.0002 # 0.0002
         self.densify_grad_threshold_after = 0.0002
 
         # self.min_opacity_threshold = 0.005
@@ -177,7 +177,7 @@ class OptimizationParams(ParamGroup):
         self.custom_xyz_scheduler = False
                 
         # deprecated
-        self.densify_from_iter = 500   # 调整至与position_lr_after_iter 一致  # 500
+        self.densify_from_iter = 500  # 500
         self.position_lr_after_iter = 500
         self.scale_ratio_threshold = 5.0 
         self.hard_alpha_composite = True
