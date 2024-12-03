@@ -78,7 +78,7 @@ class Scene:
                                     original_start_time = args.original_start_time,
                                     )
             dataset_type="waymo"
-        # TODO: load carla data check carla_data_info.json
+        # load carla data check carla_data_info.json
         elif os.path.exists(os.path.join(args.source_path,"carla_data_info.json")):
             print("Found carla_data_info.json file, assuming Carla data set!")
             scene_info = sceneLoadTypeCallbacks["Carla"](args.source_path, args.white_background, args.eval,
