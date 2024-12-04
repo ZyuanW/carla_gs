@@ -77,7 +77,13 @@ def do_evaluation(
     print("viewpoint_stack_test", len(viewpoint_stack_test))
     print("viewpoint_stack_train", len(viewpoint_stack_train))
     print("render_full", render_full)
+    print("step", step)
     print("=====================================")
+
+    parent_dir = os.path.dirname(eval_dir)
+
+    gaussians.save_ply(os.path.join(parent_dir, f"pointcloud_{step}.ply"))
+    print(f"Point cloud saved to {parent_dir}/pointcloud_{step}.ply")
 
 
     if len(viewpoint_stack_test) != 0:
@@ -121,7 +127,7 @@ def do_evaluation(
             keys=render_keys,
             num_cams=3,
             save_seperate_video=True,
-            fps=24,
+            fps=25,
             verbose=True,
         )
 
@@ -168,7 +174,7 @@ def do_evaluation(
             keys=render_keys,
             num_cams=3,
             save_seperate_video=True,
-            fps=24,
+            fps=50,
             verbose=True,
         )
 
@@ -216,7 +222,7 @@ def do_evaluation(
             keys=render_keys,
             num_cams=3,
             save_seperate_video=True,
-            fps=24,
+            fps=25,
             verbose=True,
         )
         
@@ -226,8 +232,13 @@ def do_evaluation(
 def scene_reconstruction(dataset, opt, hyper, pipe, testing_iterations, saving_iterations, 
                          checkpoint_iterations, checkpoint, debug_from,
                          gaussians, scene, stage, tb_writer, train_iter,timer):
-    print("Starting scene reconstruction")
+    print("============= Starting scene reconstruction =============")
     print("Stage: ", stage)
+    print("Model path: ", args.model_path)
+    print("saving_iterations: ", saving_iterations)
+    print("checkpoint_iterations: ", checkpoint_iterations)
+    print("train_iter: ", train_iter)
+    print("=========================================================")
 
     first_iter = 0
 
@@ -275,8 +286,9 @@ def scene_reconstruction(dataset, opt, hyper, pipe, testing_iterations, saving_i
         # print("========= saving point cloud to ", eval_dir)
         # # point cloud dir = eval_dir + checkpoint_iterations + .ply
 
-        # ply_path = os.path.basename(checkpoint).replace(".pth", ".ply")
-        # gaussians.save_ply(os.path.join(eval_dir, ply_path))
+        ply_path = os.path.basename(checkpoint).replace(".pth", ".ply")
+        gaussians.save_ply(os.path.join(eval_dir, ply_path))
+        print("========= point cloud saved to ", eval_dir)
         exit()
 
     iter_start = torch.cuda.Event(enable_timing = True)
@@ -305,6 +317,7 @@ def scene_reconstruction(dataset, opt, hyper, pipe, testing_iterations, saving_i
         
     count = 0
     psnr_dict = {}
+    # start training
     for iteration in range(first_iter, final_iter+1):        
         # if network_gui.conn == None:
         #     network_gui.try_connect()
@@ -542,12 +555,18 @@ def scene_reconstruction(dataset, opt, hyper, pipe, testing_iterations, saving_i
                 gaussians.optimizer.zero_grad(set_to_none = True)
 
             if (iteration in checkpoint_iterations):
-                save_path= "chkpnt" +f"_{stage}_" + str(30000) + ".pth"
+                save_path_30000= "chkpnt" +f"_{stage}_" + str(30000) + ".pth"
+                save_path_50000= "chkpnt" +f"_{stage}_" + str(50000) + ".pth"
+                # save_path_60000= "chkpnt" +f"_{stage}_" + str(60000) + ".pth"
+                # save_path_70000= "chkpnt" +f"_{stage}_" + str(70000) + ".pth"
                 for file in os.listdir(scene.model_path):
-                    if file.endswith(".pth") and file != save_path:
+                    # if file.endswith(".pth") and file != save_path_30000:
+                    if file.endswith(".pth") and file not in [save_path_30000, save_path_50000]:
                         os.remove(os.path.join(scene.model_path, file))
 
                 print("\n[ITER {}] Saving Checkpoint".format(iteration))
+
+           
                 torch.save((gaussians.capture(), iteration), scene.model_path + "/chkpnt" +f"_{stage}_" + str(iteration) + ".pth")
 
             if (iteration == 30000):
@@ -556,6 +575,12 @@ def scene_reconstruction(dataset, opt, hyper, pipe, testing_iterations, saving_i
                 viewpoint_stack_full = scene.getFullCameras().copy()
                 viewpoint_stack_test = scene.getTestCameras().copy()
                 viewpoint_stack_train = scene.getTrainCameras().copy()
+
+                # print("saving point cloud")
+                # ply_path = f"{eval_dir}/pointcloud_30000.ply"
+                # gaussians.save_ply(ply_path)
+                # print(f"========= Point cloud saved at 30000 iterations to {ply_path} =========")
+
 
                 do_evaluation(
                     viewpoint_stack_full,
@@ -570,10 +595,59 @@ def scene_reconstruction(dataset, opt, hyper, pipe, testing_iterations, saving_i
                     args=args
                 )
 
+            # if (iteration == 50000):
+            #     eval_dir = os.path.join(args.model_path,"eval")
+            #     os.makedirs(eval_dir,exist_ok=True)
+            #     viewpoint_stack_full = scene.getFullCameras().copy()
+            #     viewpoint_stack_test = scene.getTestCameras().copy()
+            #     viewpoint_stack_train = scene.getTrainCameras().copy()
+
+            #     # print("saving point cloud")
+            #     # ply_path = f"{eval_dir}/pointcloud_30000.ply"
+            #     # gaussians.save_ply(ply_path)
+            #     # print(f"========= Point cloud saved at 30000 iterations to {ply_path} =========")
+
+
+            #     do_evaluation(
+            #         viewpoint_stack_full,
+            #         viewpoint_stack_test,
+            #         viewpoint_stack_train,
+            #         gaussians,
+            #         background,
+            #         pipe,
+            #         eval_dir,
+            #         render_full=True,
+            #         step=iteration,
+            #         args=args
+            #     )
+            # if (iteration == final_iter):
+            #     eval_dir = os.path.join(args.model_path,"eval")
+            #     os.makedirs(eval_dir,exist_ok=True)
+            #     print("saving point cloud")
+            #     ply_path = f"{eval_dir}/pointcloud_{iteration}.ply"
+            #     gaussians.save_ply(ply_path)
+            #     print(f"========= Point cloud saved at {iteration} iterations to {ply_path} =========")
+
+
 def training(dataset, hyper, opt, pipe, testing_iterations, saving_iterations, checkpoint_iterations, checkpoint, debug_from, expname):
-    # first_iter = 0
+    # first_iter = 0\
+    saving_iterations = [14000, 20000, 30000, 45000, 50000]
+    checkpoint_iterations = [10000, 20000, 30000, 40000, 50000]
+    print(" ============ Training HyperParameters =============")
+    print("testing_iterations", testing_iterations)
+    print("saving_iterations", saving_iterations)
+    print("checkpoint_iterations", checkpoint_iterations)
+    print("checkpoint", checkpoint)
+    print("expname", expname)
+    print("====================================================")
+    print()
+
+
+
+    print("prepare output and logger")
     tb_writer = prepare_output_and_logger(expname)        
 
+    print("start initialize gaussian model")
     gaussians = GaussianModel(dataset.sh_degree, hyper)
     print("gauusian model initialized")
         
@@ -761,7 +835,7 @@ if __name__ == "__main__":
     parser.add_argument('--debug_from', type=int, default=-1)
     parser.add_argument('--detect_anomaly', action='store_true', default=False)
     parser.add_argument("--test_iterations", nargs="+", type=int, default=[3000,7000,14000])
-    parser.add_argument("--save_iterations", nargs="+", type=int, default=[ 14000, 20000, 30_000, 45000, 60000])
+    parser.add_argument("--save_iterations", nargs="+", type=int, default=[ 14000, 20000, 30_000, 45000,50000])
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--checkpoint_iterations", nargs="+", type=int, default=[10_000,20_000,30_000,40_000,50_000])
     parser.add_argument("--start_checkpoint", type=str, default = None)
